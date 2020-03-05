@@ -1,0 +1,121 @@
+<div class="site-wrapper payment-page">
+  <header class="header">
+    <div class="header-inner">
+      <a routerLink="/" title="Order Refund">
+        <h1>
+          <em>
+            <img src="assets/images/back-arrow.svg" alt="Back arrow">
+          </em> Order Refund
+        </h1>
+      </a>
+      <app-logout></app-logout>
+    </div>
+  </header>
+  <main class="wrapper" #wrapperRef>
+    <div class="payment-inner padding-bottom">
+      <div class="product-listing">
+        <div class="inner-listing">
+          <ul class="order-listing-inner">
+            <li>
+              <h2 class="red-text">Order Detail</h2>
+            </li>
+            <li class="two-column">
+              <div class="left-col">
+                <div class="order-info">
+                  <a href="#">
+                    <em>
+                      <img src="assets/images/order.svg" alt="order">
+                    </em>
+                    <span class="red-text">{{orderDetails?.order_number}}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="right-col">
+                <a>
+                  <span class="delivered-badge">
+                    <em><img src="assets/images/deliver-img.svg" alt="deliver-img"></em>
+                    {{orderDetails?.status}}
+                  </span>
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="order-info">
+                <em>
+                  <img src="assets/images/location.svg" alt="location">
+                </em>
+                <span class="strong">
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_1">
+                    {{orderDetails?.shipment_address.address_line_1}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_2">
+                    {{orderDetails?.shipment_address.address_line_2}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_3">
+                    {{orderDetails?.shipment_address.address_line_3}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_4">
+                    {{orderDetails?.shipment_address.address_line_4}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_5">
+                    {{orderDetails?.shipment_address.address_line_5}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_6">
+                    {{orderDetails?.shipment_address.address_line_6}}
+                  </ng-container>
+                </span>
+              </div>
+            </li>
+            <li class="two-column right-min-col">
+              <div class="left-col">
+                <div class="bold order-info">
+                  <em>
+                    <img src="assets/images/user.svg" alt="user">
+                  </em>
+                  <span>{{orderDetails?.shipment_address.first_name}}
+                    {{orderDetails?.shipment_address.last_name}}</span>
+                </div>
+              </div>
+              <div class="right-col">
+                <div class="order-info">
+                  <em>
+                    <img src="assets/images/collect-icon.svg" alt="collect-icon">
+                  </em>
+                  <span *ngIf="orderDetails.payment_status == 'not_paid'">Not Paid</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="order-detail single-detail">
+                <p>Recheck Status:</p>
+                <div class="badge-wrapper">
+                  <span class="info-badge red-badge">Return</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="inner-listing">
+          <ul>
+            <li class="bold-text">
+              <div class="order-detail">
+                <div class="left inner-detail">
+                  <p>Total Refund Amount</p>
+                </div>
+                <div class="right inner-detail">
+                  <p class="red-text">{{orderDetails?.return_amount}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="bottom-button">
+          <a title="CONFIRM" class="btn red-btn" (click)="onConfirmCancel()">Confirm</a>
+        </div>
+      </div>
+    </div>
+    <div class="custom-fixed-bottom" #navigationBarContainerRef>
+      <app-navigation-bar></app-navigation-bar>
+    </div>
+  </main>
+</div>

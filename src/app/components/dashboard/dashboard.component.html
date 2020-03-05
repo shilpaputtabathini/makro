@@ -1,0 +1,69 @@
+<div class="site-wrapper dashboard-page">
+  <header class="header">
+    <div class="header-inner">
+      <a title="dashboard">
+        <h1>
+          Dashboard
+        </h1>
+      </a>
+      <app-logout></app-logout>
+    </div>
+  </header>
+  <main class="wrapper">
+    <div class="dashboard-inner padding-bottom">
+      <ul class="product-listing">
+        <li>
+          <div class="dashboard-inner-listing" (click)="navigateToScreen(orderTypes.DELIVERY_ORDERS)">
+            <a title="Delivery Orders"></a>
+            <span>
+              <img src="assets/images/delivery-order.svg" alt="Delivery Orders">
+            </span>
+            <p>Delivery Orders</p>
+          </div>
+        </li>
+        <li>
+          <div class="dashboard-inner-listing" (click)="navigateToScreen(orderTypes.CANCEL_ORDERS)">
+            <a title="Cancel Orders"></a>
+            <span>
+              <img src="assets/images/cancel-order.svg" alt="Cancel Orders">
+            </span>
+            <p>Cancel Orders</p>
+          </div>
+        </li>
+        <li>
+          <div class="dashboard-inner-listing" (click)="navigateToScreen(orderTypes.REATTEMPT_ORDERS)">
+            <a title="Re-attempt Orders"></a>
+            <span>
+              <img src="assets/images/reattempt-order.svg" alt="Re-attempt Orders">
+            </span>
+            <p>Re-attempt Orders</p>
+          </div>
+        </li>
+        <li>
+          <div class="dashboard-inner-listing" (click)="navigateToScreen(orderTypes.PENDING_ORDERS)">
+            <a title="Pending Orders"></a>
+            <span>
+              <img src="assets/images/pending.svg" alt="Pending">
+            </span>
+            <p>Pending orders</p>
+          </div>
+        </li>
+        <li>
+          <!-- <div class="dashboard-inner-listing">
+            <a [routerLink]="['/order-history']" title="Order History"></a> 
+          (click)="navigateToScreen(orderTypes.ORDER_HISTORY)"-->
+          <div class="dashboard-inner-listing"  [routerLink]="['/order-history']" title="Order History" >
+            <a title="Order History"></a>
+            <span>
+              <img src="assets/images/document.svg" alt="Order History">
+            </span>
+            <p>Order History</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="custom-fixed-bottom">
+      <app-navigation-bar></app-navigation-bar>
+    </div>
+  </main>
+</div>

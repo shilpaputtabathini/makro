@@ -1,0 +1,23 @@
+<div class="modal cancel-success-modal" id="return-order-success-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-inner">
+          <span><img src="assets/images/right-check-green.svg" alt="right-check"></span>
+          <p *ngIf="orderType === orderTypes.CANCEL_ORDERS">
+            Successfully order no <em class="order-num">{{orderDetails?.order_number}}</em> has been cancelled.
+          </p>
+          <p *ngIf="orderType === orderTypes.REATTEMPT_ORDERS">
+            Successfully order no <em class="order-num">{{orderDetails?.order_number}}</em> has been
+            <ng-container *ngIf="reattemptOrderStatus === reattemptOrderStatuses.MARK_AS_READY">
+              marked as ready.
+            </ng-container>
+            <ng-container *ngIf="reattemptOrderStatus === reattemptOrderStatuses.MARK_AS_REATTEMPT">
+              marked as reattempt.
+            </ng-container>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

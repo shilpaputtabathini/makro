@@ -1,0 +1,194 @@
+<ng-container *ngIf="showBarcodeScanner">
+  <zxing-scanner [torch]="torchEnabled" [formats]="['EAN_13', 'EAN_8']" (scanSuccess)="onCodeResult($event)"
+    [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
+    (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+
+  <section class="results" *ngIf="qrResultString">
+    <div>
+      <small>Result</small>
+      <strong>{{ qrResultString }}</strong>
+    </div>
+  </section>
+</ng-container>
+
+<div class="site-wrapper orderlist-page" *ngIf="!showBarcodeScanner">
+  <header class="header">
+    <div class="header-inner">
+      <a routerLink="/dashboard" title="dashboard">
+        <h1>
+          <em>
+            <img src="assets/images/back-arrow.svg" alt="Back arrow">
+          </em> List of Orders
+        </h1>
+      </a>
+      <app-logout></app-logout>
+    </div>
+    <div class="search-wrapper">
+      <div class="form-group">
+        <label for="search-input" class="search-icon">
+          <img src="assets/images/ic_search.svg" alt="">
+        </label>
+        <input type="text" id="search-input" class="form-control search-input" placeholder="Search order here"
+          [(ngModel)]="searchTerm">
+        <div class="form-group barcode-wrapper" (click)="toggleBarcodeScanner()">
+          <label for="barcode-input" class="barcode-icon">
+            <img src="assets/images/ic_barcode.svg" alt="">
+          </label>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="wrapper" #wrapperRef>
+    <div class="orderlist-page-inner padding-bottom">
+      <div class="product-listing" *ngIf="(ordersList && ordersList.length) else noDataFound">
+        <ng-container *ngIf="(ordersList | genericFilter:searchTerm).length else noDataFound">
+          <div class="inner-listing" [style.backgroundColor]="order.is_reattempt ?'#ccc': '#fff'"
+            *ngFor="let order of ordersList | genericFilter:searchTerm:[] ; let i = index"
+            (click)="onOrderSelect(order)">
+            <ul class="order-listing-inner">
+              <li class="two-column">
+                <div class="left-col">
+                  <div class="order-info">
+                    <a>
+                      <em>
+                        <img src="assets/images/order.svg" alt="order">
+                      </em>
+                      <span class="red-text"> {{order.order_number}}</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="right-col" *ngIf="selectedOrderType !== orderTypes.REATTEMPT_ORDERS"
+                  [ngStyle]="{'display': selectedOrderType === orderTypes.CANCEL_ORDERS ? 'inherit': 'block'}">
+                  <span class="delivered-badge">
+                    <em><img src="assets/images/deliver-img.svg" alt="deliver-img"></em>
+                    {{order.status}}
+                  </span>
+                  <a *ngIf="selectedOrderType === orderTypes.CANCEL_ORDERS" title="Cancel"
+                    (click)="onCancelOrder($event,order)" class="cancel-link" style="margin-left: 6px;"
+                    data-target="#cancel-order-modal" data-toggle="modal">
+                    <img height="20" src="assets/images/close-icon1.svg" alt="close-icon" />
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div class="order-info">
+                  <em>
+                    <img src="assets/images/location.svg" alt="location">
+                  </em>
+                  <span class="strong">{{order.ship_to_address}}</span>
+                </div>
+              </li>
+              <li class="two-column">
+                <div class="left-col">
+                  <div class="order-info">
+                    <em>
+                      <img src="assets/images/calendar.svg" alt="calendar">
+                    </em>
+                    <span class="date-span">{{order.requested_ship_date}}&nbsp;</span>
+                    <span>&nbsp;{{order.requested_ship_time}}</span>
+                  </div>
+                </div>
+                <div class="right-col" *ngIf="selectedOrderType !== orderTypes.REATTEMPT_ORDERS">
+                  <div class="order-info">
+                    <em>
+                      <img src="assets/images/collect-icon.svg" alt="collect-icon">
+                    </em>
+                    <span class="red-text">To be Collected</span>
+                  </div>
+                </div>
+              </li>
+              <li class="two-column">
+                <div class="left-col">
+                  <div class="bold order-info">
+                    <em>
+                      <img src="assets/images/user.svg" alt="user">
+                    </em>
+                    <span class="red-text">{{order.customer_name}}</span>
+                  </div>
+                </div>
+                <div class="right-col">
+                  <div class="order-info">
+                    <em>
+                      <img src="assets/images/phone.svg" alt="phone">
+                    </em>
+                    <a href="tel:{{order.customer_phone_number}}">{{order.customer_phone_number}}</a>
+                  </div>
+                </div>
+              </li>
+              <li class="two-column" *ngIf="selectedOrderType === orderTypes.REATTEMPT_ORDERS">
+                <div class="status-info">
+                  <span>Status:</span>
+                  <div class="radio-wrapper">
+                    <div class="custom-radio ready-order"
+                      (click)="onReattemptStatusSelection($event, order, reattemptOrderStatuses.MARK_AS_READY, i)">
+                      <input type="radio" name="reattemptOrderStatus{{i}}" id="markAsReady{{i}}" [value]="false"
+                        [(ngModel)]="order.is_reattempt">
+                      <label for="markAsReady{{i}}">Mark as Ready</label>
+                    </div>
+                    <div class="custom-radio reattempt-order"
+                      (click)="onReattemptStatusSelection($event, order, reattemptOrderStatuses.MARK_AS_REATTEMPT, i)">
+                      <input type="radio" name="reattemptOrderStatus{{i}}" id="markAsReattempt{{i}}" [value]="true"
+                        [(ngModel)]="order.is_reattempt">
+                      <label for="markAsReattempt{{i}}">Mark as Reattempt</label>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+      </div>
+      <ng-template #noDataFound>
+        <div class="jumbotron noDataFound text-center">
+          <h1>No data Found</h1>
+        </div>
+      </ng-template>
+    </div>
+    <div class="custom-fixed-bottom" #navigationBarContainerRef>
+      <app-navigation-bar></app-navigation-bar>
+    </div>
+  </main>
+</div>
+
+<!-- modal -->
+<div class="modal cancel-order-modal" id="cancel-order-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-inner">
+          <p>Do you want to cancel selected order?</p>
+          <div class="btn-wrapper">
+            <a href="#" title="Yes" class="btn fill-red-btn done-btn" data-dismiss="modal"
+              data-target="#order-reason-modal" data-toggle="modal">Yes</a>
+            <a href="#" title="No" class="btn bordered-red-btn return-btn" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal cancel-order-modal order-reason" id="order-reason-modal" tabindex="-1" role="dialog"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title red-text">Please select reason
+        </h3>
+      </div>
+      <div class="modal-body">
+        <div class="modal-inner">
+          <div class="cancel-order-drop-down">
+            <select class="select-dropdown select-full-width" [(ngModel)]="selectedOrderReason">
+              <option *ngFor="let reason of reasonCodeList" [ngValue]="reason">{{reason.description}}</option>
+            </select>
+          </div>
+          <div class="btn-wrapper">
+            <a (click)="onReasonSave()" title="Done" class="btn fill-red-btn done-btn">Done</a>
+            <a (click)="closeModal()" title="Cancel" class="btn bordered-red-btn return-btn">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="login-page">
+  <main class="wrapper">
+    <section class="login-section">
+      <div class="logo">
+        <img src="assets/images/logo.png" alt="Makro" />
+      </div>
+      <div class="login-section-text">
+        <h1>Delivery Service</h1>
+        <span>Log in to continue</span>
+      </div>
+      <form class="login-form makro-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+        <div class="form-group email-block" [class.active]="activeField === 'userid'"
+          [class.valid]="useridControl.valid">
+
+          <label for="userid" [class.value]="activeField === 'userid' || useridRef.value.length">Username</label>
+
+          <input type="text" id="userid" name="userid" class="form-control email" autocomplete="off" #useridRef
+            formControlName="userid" (focus)="activeField = 'userid'" (focusout)="activeField = null"
+            [class.active]="activeField === 'userid' || useridRef.value.length" [class.valid]="useridControl.valid">
+
+          <em *ngIf="useridControl.valid">
+            <img src="assets/images/red-checked.svg" alt="">
+          </em>
+
+          <span class="field-error"
+            *ngIf="(useridControl.touched && useridControl.errors?.required) || (!useridRef.value.length && formSubmitted)">This
+            field is required.</span>
+        </div>
+
+        <div class="form-group password-block" [class.active]="activeField === 'password'">
+
+          <label for="password" [class.value]="activeField === 'password' || passwordRef.value.length">Password</label>
+
+          <input id="password" name="password" class="form-control" #passwordRef formControlName="password"
+            [type]="showPassword ? 'text': 'password'" (focus)="activeField = 'password'"
+            (focusout)="activeField = null" [class.active]="activeField === 'password' || passwordRef.value.length">
+
+          <em class="show-password" [class.shown]="showPassword">
+            <img *ngIf="!showPassword" src="assets/images/eye.svg" alt="eye" class="eye-icon"
+              (click)="togglePassword()">
+            <img *ngIf="showPassword" src="assets/images/close-eye.svg" alt="close-eye" class="close-eye-icon"
+              (click)="togglePassword()">
+          </em>
+
+          <span class="field-error"
+            *ngIf="(passwordControl.touched && passwordControl.errors?.required) || (!passwordRef.value.length && formSubmitted)">This
+            field is required.</span>
+        </div>
+
+        <div class="button-block">
+          <button type="submit" class="btn red-btn" title="Login" id="login-btn">Login</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>

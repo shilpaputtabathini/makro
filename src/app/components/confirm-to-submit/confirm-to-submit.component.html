@@ -1,0 +1,169 @@
+<div class="confirm-to-submit-page fixed-header">
+  <header class="header" #headerRef>
+    <div class="header-inner">
+      <a (click)="goBack()" title="Dashboard">
+        <h1>
+          <em>
+            <img src="assets/images/back-arrow.svg" alt="Back arrow">
+          </em> Confirm To Submit
+        </h1>
+      </a>
+      <app-logout></app-logout>
+    </div>
+  </header>
+  <main class="wrapper confirm-submit" #wrapperRef>
+    <div class="confirm-submit-inner padding-bottom">
+      <div class="product-listing">
+        <div class="inner-listing">
+          <ul class="order-listing-inner">
+            <li>
+              <h2 class="red-text">Order Detail</h2>
+            </li>
+            <li class="two-column">
+              <div class="left-col">
+                <div class="order-info">
+                  <a href="#">
+                    <em>
+                      <img src="assets/images/order.svg" alt="order">
+                    </em>
+                    <span class="red-text">{{orderDetails?.order_number}}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="right-col">
+                <span class="delivered-badge">
+                  <em><img src="assets/images/deliver-img.svg" alt="deliver-img"></em>
+                  {{orderDetails?.status}}
+                </span>
+
+              </div>
+            </li>
+            <li>
+              <div class="order-info">
+                <em>
+                  <img src="assets/images/location.svg" alt="location">
+                </em>
+                <span class="strong">
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_1">
+                    {{orderDetails?.shipment_address.address_line_1}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_2">
+                    {{orderDetails?.shipment_address.address_line_2}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_3">
+                    {{orderDetails?.shipment_address.address_line_3}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_4">
+                    {{orderDetails?.shipment_address.address_line_4}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_5">
+                    {{orderDetails?.shipment_address.address_line_5}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_6">
+                    {{orderDetails?.shipment_address.address_line_6}}
+                  </ng-container>
+                </span>
+              </div>
+            </li>
+            <li class="two-column">
+              <div class="left-col">
+                <div class="bold order-info">
+                  <em>
+                    <img src="assets/images/user.svg" alt="user">
+                  </em>
+                  <span class="red-text">{{orderDetails?.shipment_address.first_name}}
+                    {{orderDetails?.shipment_address.last_name}}</span>
+                </div>
+              </div>
+              <div class="right-col">
+                <div class="order-info">
+                  <em>
+                    <img src="assets/images/collect-icon.svg" alt="collect-icon">
+                  </em>
+                  <span class="red-text">{{orderDetails?.payment_status=='paid' ? 'Paid' : 'To be Collected'}}</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="order-detail single-detail">
+                <p>Amount to be collected:</p>
+                <span class="price">${{orderDetails?.total_price}}</span>
+              </div>
+            </li>
+            <li>
+              <div class="order-detail single-detail">
+                <p>Recheck Status:</p>
+                <div class="badge-wrapper">
+                  <span class="info-badge" [class.red-badge]="isReturnOrder"
+                    [class.green-badge]="!isReturnOrder">{{isReturnOrder ? 'Return' : 'No Return'}}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="inner-listing total-listing">
+          <ul class="inner-total-listing">
+            <li>
+              <h2 class="red-text">Return Detail</h2>
+            </li>
+            <li>
+              <div class="order-detail">
+                <div class="left inner-detail">
+                  <p>Shipped Invoice Amount</p>
+                </div>
+                <div class="right inner-detail">
+                  <p>${{orderDetails?.shipped_amount}}</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="order-detail">
+                <div class="left inner-detail">
+                  <p>Value Of Return</p>
+                </div>
+                <div class="right inner-detail">
+                  <p>${{orderDetails?.return_amount}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="bold-text">
+              <div class="order-detail">
+                <div class="left inner-detail">
+                  <p>Total</p>
+                </div>
+                <div class="right inner-detail">
+                  <p class="red-text">${{orderDetails?.total_price}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul class="inner-item-listing">
+            <li *ngFor="let item of orderDetails?.order_lines">
+              <div class="order-detail align-top">
+                <div class="left inner-detail">
+                  <p>{{item.description}}</p>
+                  <div class="return-total">
+                    <span>Return:<em class="red-text">{{item.returned_quantity}}</em></span>
+                    <span>Shipped Qty:<em>{{item.quantity}}</em></span>
+                  </div>
+                </div>
+                <div class="right inner-detail">
+                  <p>${{(item.unit_price * item.returned_quantity)}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-fixed-bottom" #navigationBarContainerRef>
+      <div class="bottom-fixed-button">
+        <!-- [routerLink]="['/order-payment', orderId]" -->
+        <a (click)="getOrderPayment(orderId)" title="Proceed for payment" class="btn red-btn">Proceed for
+          payment</a>
+      </div>
+      <app-navigation-bar></app-navigation-bar>
+    </div>
+  </main>
+</div>

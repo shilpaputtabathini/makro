@@ -1,0 +1,149 @@
+<div class="site-wrapper payment-page" [class.confirm-order]="isOrderConfirmed">
+  <header class="header">
+    <div class="header-inner">
+      <a [routerLink]="['/confirm-to-submit', orderId]" title="Order Payment">
+        <h1>
+          <em>
+            <img src="assets/images/back-arrow.svg" alt="Back arrow">
+          </em> Order Payment
+        </h1>
+      </a>
+      <app-logout></app-logout>
+    </div>
+  </header>
+  <main class="wrapper">
+    <div class="payment-inner padding-bottom">
+      <div class="product-listing">
+        <div class="inner-listing">
+          <ul class="order-listing-inner">
+            <li>
+              <h2 class="red-text">Order Detail</h2>
+            </li>
+            <li class="two-column">
+              <div class="left-col">
+                <div class="order-info">
+                  <a href="#">
+                    <em>
+                      <img src="assets/images/order.svg" alt="order">
+                    </em>
+                    <span class="red-text">{{orderDetails?.order_number}}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="right-col ">
+                <span class="delivered-badge">
+                  <em><img src="assets/images/deliver-img.svg" alt="deliver-img"></em>
+                  {{orderDetails?.status}}
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="order-info">
+                <em>
+                  <img src="assets/images/location.svg" alt="location">
+                </em>
+                <span class="strong">
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_1">
+                    {{orderDetails?.shipment_address.address_line_1}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_2">
+                    {{orderDetails?.shipment_address.address_line_2}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_3">
+                    {{orderDetails?.shipment_address.address_line_3}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_4">
+                    {{orderDetails?.shipment_address.address_line_4}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_5">
+                    {{orderDetails?.shipment_address.address_line_5}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_6">
+                    {{orderDetails?.shipment_address.address_line_6}}
+                  </ng-container>
+                </span>
+              </div>
+            </li>
+            <li class="two-column right-min-col">
+              <div class="left-col">
+                <div class="bold order-info">
+                  <em>
+                    <img src="assets/images/user.svg" alt="user">
+                  </em>
+                  <span>{{orderDetails?.shipment_address.first_name}}
+                    {{orderDetails?.shipment_address.last_name}}</span>
+                </div>
+              </div>
+              <div class="right-col">
+                <div class="order-info">
+                  <em>
+                    <img src="assets/images/collect-icon.svg" alt="collect-icon">
+                  </em>
+                  <span class="red-text">{{orderDetails?.payment_status=='paid' ? 'Paid' : 'To be Collected'}}</span>
+                </div>
+              </div>
+            </li>
+            <li *ngIf="!isOrderConfirmed">
+              <div class="order-detail single-detail">
+                <p>Amount to be collected:</p>
+                <span class="price">${{orderDetails?.total_price}}</span>
+              </div>
+            </li>
+            <li>
+              <div class="order-detail single-detail">
+                <p>Recheck Status:</p>
+                <div class="badge-wrapper">
+                  <span class="info-badge" [class.red-badge]="isReturnOrder"
+                    [class.green-badge]="!isReturnOrder">{{isReturnOrder ? 'Return' : 'No Return'}}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="inner-listing">
+          <ul>
+            <li class="bold-text">
+              <div class="order-detail">
+                <div class="left inner-detail">
+                  <p>Total Amount</p>
+                </div>
+                <div class="right inner-detail">
+                  <p class="red-text">${{orderDetails?.total_price}}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="bottom-button">
+          <!-- <a title="CONFIRM PAYMENT" class="red-btn btn" (click)="confirm()"
+            [class.disabled]="isOrderConfirmed || isOrderWaiting"
+            [class.red-btn]="!(isOrderConfirmed || isOrderWaiting)">Confirm Payment</a> -->
+            <button type="button" title="CONFIRM PAYMENT" class="red-btn btn" (click)="confirm()"
+            [class.red-btn]="!(isOrderConfirmed)">{{orderDetails?.payment_status=='not_paid' ? 'Confirm Payment' : 'Retry Payment'}}</button>
+        </div>
+      </div>
+      <!-- <div class="payment-status-block" *ngIf="isOrderConfirmed || isOrderWaiting">
+        <div class="payment-status-inner">
+          <p>Payment Status</p>
+        </div>
+        <div class="payment-status-inner">
+          <div class="rounded-badge-wrapper">
+            <span class="round-badge" [class.green-badge]="isOrderConfirmed"
+              [class.yellow-badge]="isOrderWaiting">{{isOrderConfirmed ? 'Paid' : 'Waiting for payment' }}</span>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="custom-fixed-bottom">
+      <app-navigation-bar></app-navigation-bar>
+    </div>
+  </main>
+</div>
+<!-- modal -->
+<div class="modal payment-modal" id="payment-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <iframe width="100%" height="500" src=""></iframe>
+    </div>
+  </div>
+</div>

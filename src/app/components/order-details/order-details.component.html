@@ -1,0 +1,290 @@
+<ng-container *ngIf="showBarcodeScanner">
+  <zxing-scanner [torch]="torchEnabled" [formats]="['EAN_13', 'EAN_8']" (scanSuccess)="onCodeResult($event)"
+    [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
+    (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+
+  <section class="results" *ngIf="qrResultString">
+    <div>
+      <small>Result</small>
+      <strong>{{ qrResultString }}</strong>
+    </div>
+  </section>
+</ng-container>
+<div class="site-wrapper validate-item-page fixed-header" *ngIf="!showBarcodeScanner">
+  <header class="header" #headerRef>
+    <div class="header-inner">
+      <a (click)="goBack()" title="Recheck Details">
+        <h1>
+          <em>
+            <img src="assets/images/back-arrow.svg" alt="Back arrow">
+          </em> Recheck Details
+
+        </h1>
+      </a>
+      <app-logout></app-logout>
+    </div>
+    <div class="search-wrapper" *ngIf="selectedOrderType !== orderTypes.CANCEL_ORDERS">
+      <div class="form-group">
+        <label for="search-input" class="search-icon">
+          <img src="assets/images/ic_search.svg" alt="">
+        </label>
+        <input type="text" id="search-input" class="form-control search-input" (keyup)="getSelctedId(qrResultString)"
+          placeholder="Input or Scan the item barcode" #result [(ngModel)]="qrResultString">
+        <div class="form-group barcode-wrapper" (click)="toggleBarcodeScanner()">
+          <label for="barcode-input" class="barcode-icon">
+            <img src="assets/images/ic_barcode.svg" alt="">
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </header>
+  <main class="wrapper" #wrapperRef>
+    <div class="validate-item-inner inner-page padding-bottom">
+      <div class="product-listing">
+        <div class="inner-listing">
+          <ul class="order-listing-inner">
+            <li class="two-column">
+              <div class="left-col">
+                <div class="order-info">
+                  <a href="#">
+                    <em>
+                      <img src="assets/images/order.svg" alt="order">
+                    </em>
+                    <span class="red-text">{{orderDetails?.order_number}}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="right-col">
+                <span class="delivered-badge">
+                  <em><img src="assets/images/deliver-img.svg" alt="deliver-img"></em>
+                  {{orderDetails?.status}}
+                </span>
+                <a *ngIf="selectedOrderType === orderTypes.CANCEL_ORDERS" title="Cancel" (click)="showModal($event)"
+                  class="cancel-link" style="margin-left: 6px;" data-target="#cancel-order-modal" data-toggle="modal">
+                  <img height="10" src="assets/images/close-icon.svg" alt="close-icon" />
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="order-info">
+                <em>
+                  <img src="assets/images/location.svg" alt="location">
+                </em>
+                <span class="strong">
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_1">
+                    {{orderDetails?.shipment_address.address_line_1}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_2">
+                    {{orderDetails?.shipment_address.address_line_2}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_3">
+                    {{orderDetails?.shipment_address.address_line_3}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_4">
+                    {{orderDetails?.shipment_address.address_line_4}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_5">
+                    {{orderDetails?.shipment_address.address_line_5}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_6">
+                    {{orderDetails?.shipment_address.address_line_6}}
+                  </ng-container>
+                </span>
+              </div>
+            </li>
+            <li class="two-column">
+              <div class="left-col">
+                <div class="bold order-info">
+                  <em>
+                    <img src="assets/images/user.svg" alt="user">
+                  </em>
+                  <span class="red-text">{{orderDetails?.shipment_address.first_name}}
+                    {{orderDetails?.shipment_address.last_name}}</span>
+                </div>
+              </div>
+              <div class="right-col">
+                <div class="order-info">
+                  <em>
+                    <img src="assets/images/collect-icon.svg" alt="collect-icon">
+                  </em>
+                  <span class="red-text">To be Collected</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="order-detail single-detail">
+                <p>Amount to be collected:</p>
+                <span class="price">${{orderDetails?.total_price}}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="inner-listing" id="{{i}}" [ngClass]="selectedIndex === i ? 'active': ''"
+          *ngFor="let item of orderDetails?.order_lines; let i=index">
+          <div class="listing-inner">
+            <div class="item-info confirm-order">
+              <div class="left-col">
+                <div class="img-wrapper">
+                  <img src="assets/images/item-1.jpg" alt="">
+                </div>
+              </div>
+              <div class="right-col">
+                <div class="item-dec order-listing-inner">
+                  <div class="red-text order-info">
+                    <span>Item No: </span> {{item.product_number}}
+                  </div>
+                  <h2><span>Des:</span> {{item.description}}</h2>
+                  <div class="two-column">
+                    <div class="qty-info order-info">
+                      <span>To Deliver/Shipped Qty:</span>
+                      <ng-container *ngIf="item.uom === 'EACH'">
+                        {{getRoundedValues(item.to_deliver)}}/{{item.shipped_quantity}}
+                      </ng-container>
+                      <ng-container *ngIf="item.uom !== 'EACH'">
+                        {{item.to_deliver}}/{{item.shipped_quantity}}
+                      </ng-container>
+                    </div>
+                    <div class="badge-wrapper" *ngIf="selectedOrderType !== orderTypes.CANCEL_ORDERS">
+                      <a class="info-badge pending" *ngIf="item.status != 'delivered'" title="Pending">Pending</a>
+                      <a class="info-badge confirm" *ngIf="item.status == 'delivered'" title="Confirm">Confirmed</a>
+                    </div>
+                  </div>
+                  <div class="two-column">
+                    <div class="qty-info order-info">
+                      <span>Unit Of Measurement:</span> {{item.uom}}
+                    </div>
+                  </div>
+                  <span class="prize-info">${{item.unit_price}}</span>
+                  <div class="btn-wrapper" *ngIf="selectedOrderType !== orderTypes.CANCEL_ORDERS">
+                    <a title="Done" class="btn fill-red-btn done-btn" *ngIf="item.status == 'delivered'">Done</a>
+                    <a title="Done" (click)="onConfirmOrderLine(item.id)" class="btn fill-red-btn"
+                      *ngIf="item.status != 'delivered'">Done</a>
+                    <a title="Return" class="btn bordered-red-btn return-btn" data-target="#return-product-modal"
+                      (click)="onReturn(item)" data-toggle="modal">Return</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-fixed-bottom" #navigationBarContainerRef>
+      <div class="bottom-fixed-button" *ngIf="selectedOrderType !== orderTypes.CANCEL_ORDERS">
+        <a title="CONFIRM ALL" class="btn red-btn" (click)="confirmAll()">Confirm all</a>
+      </div>
+      <app-navigation-bar></app-navigation-bar>
+    </div>
+  </main>
+</div>
+
+
+<!-- modal -->
+<div class="modal return-product-modal" id="return-product-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title red-text">Select item quantity to be returned</h3>
+      </div>
+      <div class="modal-body">
+        <div class="item-details">
+          <ul>
+            <li>
+              <em>Item No: </em>
+              <span class="red-text">{{selectedItem?.product_number}}</span>
+            </li>
+            <li>
+              <em>Desc: </em>
+              <span>{{selectedItem?.description}}</span>
+            </li>
+            <li>
+              <div class="counter-block">
+                <div class="left-block">
+                  <p>Return Quantity</p>
+                </div>
+                <div class="right-block">
+                  <div class="counter-product-wrapper">
+                    <a (click)="onReturnQuantityDecrement()"><span class="input-number-decrement">–</span></a>
+                    <input class="input-number" type="text" [(ngModel)]="returnedQuantity" id="quantity"
+                      (change)="onQuantityChange()">
+                    <a (click)="onReturnQuantityIncrement()"><span class="input-number-increment">+</span></a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <select class="select-dropdown select-full-width" [(ngModel)]="selectedOrderReason">
+                <option value="" selected>Select reason</option>
+                <option *ngFor="let reason of reasonCodeList" [ngValue]="reason">{{reason.description}}</option>
+              </select>
+            </li>
+          </ul>
+          <div class="btn-wrapper" *ngIf="selectedOrderType !== orderTypes.CANCEL_ORDERS">
+            <a title="Done" class="btn fill-red-btn done-btn" (click)="onReturnConfirm()">Done</a>
+            <a title="Cancel" class="btn bordered-red-btn return-btn" data-dismiss="modal">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel Order Confirmation Modal -->
+<div class="modal cancel-order-modal" id="cancel-order-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-inner">
+          <p>Do you want to cancel this order?</p>
+          <div class="btn-wrapper">
+            <a title="Yes" class="btn fill-red-btn done-btn" data-dismiss="modal" data-target="#order-reason-modal"
+              data-toggle="modal">Yes</a>
+            <a title="No" class="btn bordered-red-btn return-btn" data-dismiss="modal">No</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel Order Reason Selection Modal -->
+<div class="modal cancel-order-modal order-reason" id="order-reason-modal" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title red-text">Please select reason
+        </h3>
+      </div>
+      <div class="modal-body">
+        <div class="modal-inner">
+          <div class="cancel-order-drop-down">
+            <select class="select-dropdown select-full-width" [(ngModel)]="selectedOrderReason">
+              <option value="" selected>Select reason</option>
+              <option *ngFor="let reason of reasonCodeList" [ngValue]="reason">{{reason.description}}</option>
+            </select>
+          </div>
+          <div class="btn-wrapper">
+            <a (click)="onReasonSave()" title="Done" class="btn fill-red-btn done-btn">Done</a>
+            <a (click)="closeModal()" title="Cancel" class="btn bordered-red-btn return-btn">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="productNotFound" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body pNotFound">
+        <div class="modal-inner">
+          <div class="">
+            <h2>Product Not Found</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

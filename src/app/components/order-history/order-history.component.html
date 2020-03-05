@@ -1,0 +1,122 @@
+<div class="site-wrapper orderhistory-page orderlist-page">
+  <header class="header">
+    <div class="header-inner">
+      <a routerLink="/dashboard" title="dashboard">
+        <h1>
+          <em>
+            <img src="assets/images/back-arrow.svg" alt="Back arrow">
+          </em> Order History
+        </h1>
+      </a>
+      <app-logout></app-logout>
+    </div>
+  </header>
+  <main class="wrapper">
+    <div class="order-history-tab">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" id="delivered"
+            (click)="getSelectedTabTd('delivered')">Delivery</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" id="cancelled" (click)="getSelectedTabTd('cancelled')">Cancelled</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tab-content">
+      <div id="{{selectedTab}}" class="tab-pane active">
+
+        <div class="orderlist-page-inner padding-bottom">
+          <div class="product-listing" *ngIf="orderHistory?.length != 0;else noDeliveredyData">
+            <div class="inner-listing" *ngFor="let delivered of orderHistory">
+              <ul class="order-listing-inner">
+                <li class="two-column">
+                  <div class="left-col">
+                    <div class="order-info">
+                      <a>
+                        <em>
+                          <img src="assets/images/order.svg" alt="order">
+                        </em>
+                        <span class="red-text">{{delivered.order_number}}</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="right-col">
+                    <span class="delivered-badge">
+                      <em><img src="assets/images/deliver-img.svg" alt="deliver-img"></em>
+                      {{delivered.status}}
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <div class="order-info">
+                    <em>
+                      <img src="assets/images/location.svg" alt="location">
+                    </em>
+                    <span class="strong">{{delivered.ship_to_address}}</span>
+                  </div>
+                </li>
+                <li class="two-column">
+                  <div class="left-col">
+                    <div class="order-info calendar-info">
+                      <em>
+                        <img src="assets/images/calendar.svg" alt="calendar">
+                      </em>
+                      <span class="date-span">{{delivered.requested_ship_date}}</span>
+                      <span>{{delivered.requested_ship_time}}</span>
+                    </div>
+                  </div>
+                  <div class="right-col">
+                    <div class="order-info">
+                      <em>
+                        <img src="assets/images/collect-icon.svg" alt="collect-icon">
+                      </em>
+                      <span>Paid</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="two-column">
+                  <div class="left-col">
+                    <div class="bold order-info">
+                      <em>
+                        <img src="assets/images/user.svg" alt="user">
+                      </em>
+                      <span>{{delivered.customer_name}}</span>
+                    </div>
+                  </div>
+                  <div class="right-col">
+                    <div class="order-info">
+                      <em>
+                        <img src="assets/images/phone.svg" alt="phone">
+                      </em>
+                      <a href="tel:09874563211">{{delivered.customer_phone_number}}</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <ng-template #noDeliveredyData>
+            <div class="jumbotron noDataFound text-center">
+              <h1>No Data Found</h1>
+            </div>
+          </ng-template>
+
+        </div>
+        <!-- delivered order list start -->
+      </div>
+
+
+
+      <div class="custom-fixed-bottom">
+        <app-navigation-bar></app-navigation-bar>
+      </div>
+    </div>
+
+    <div class="custom-fixed-bottom" #navigationBarContainerRef>
+      <app-navigation-bar></app-navigation-bar>
+    </div>
+  </main>
+</div>

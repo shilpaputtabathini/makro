@@ -1,0 +1,82 @@
+.signature-inner {
+  padding: 0 15px 0;
+  height: calc(100% - 80px);
+}
+
+.signature-wrapper {
+  overflow: hidden;
+}
+
+.signature-canvas {
+  text-align: center;
+}
+
+.signature-canvas canvas {
+  border: 1px dashed #838383;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.signature-canvas .clear-canvas {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.signature-canvas .clear-canvas:hover,
+.signature-canvas .clear-canvas:visited,
+.signature-canvas .clear-canvas:active {
+  text-decoration: underline;
+}
+
+.signature-inner .product-listing {
+  margin: 0;
+}
+
+.signature-page .submit-form {
+  margin: 30px 0;
+}
+
+.submit-form.makro-form label {
+  top: 12px;
+}
+
+.submit-form.makro-form label.value {
+  top: -15px;
+}
+
+.signature-page .product-listing .two-column .left-col,
+.signature-page .product-listing .two-column .right-col {
+  max-width: unset;
+  flex: unset;
+}
+
+.signature-page .product-listing .two-column {
+  justify-content: space-between;
+}
+
+.signature-page .product-listing .two-column.right-min-col .order-info {
+  min-width: 113px;
+}
+
+#signature {
+  width: 250px;
+  height: 125px;
+}
+
+#payment-status {
+  color: #fff !important;
+  background: #10a64a;
+  font-size: 11px;
+  padding: 4px 8px;
+  font-weight: bold;
+  margin-left: 4px;
+  border-radius: 3px;
+}
+
+.collect-icon {
+  height: 14px;
+  position: relative;
+  top: 4px;
+}

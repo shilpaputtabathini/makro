@@ -1,0 +1,55 @@
+<div class="custom-fixed-icons">
+  <ul>
+    <li [class.disable]="!activateDocument">
+      <div class="bottom-icons">
+        <input type="file" name="upload document" id="upload-file">
+        <label for="upload-file" class="icon-wrapper">
+          <span class="icon-image">
+            <img *ngIf="activateDocument" src="assets/images/attachment.svg" alt="attachment" class="normal">
+            <img *ngIf="!activateDocument" src="assets/images/attachment-gray.svg" alt="attachment" class="disable">
+          </span>
+          <span class="icon-text">Document</span>
+        </label>
+      </div>
+    </li>
+    <li [class.disable]="!activateCamera">
+      <div class="bottom-icons">
+        <input type="file" accept="image/*" capture="camera" id="camera-control">
+        <label for="camera-control" class="icon-wrapper">
+          <span class="icon-image">
+            <img *ngIf="activateCamera" src="assets/images/camera.svg" alt="camera" class="normal">
+            <img *ngIf="!activateCamera" src="assets/images/camera-gray.svg" alt="camera" class="disable">
+          </span>
+          <span class="icon-text">Camera</span>
+        </label>
+      </div>
+    </li>
+    <li>
+      <a routerLink="/dashboard" title="Home" class="icon-wrapper">
+        <span class="icon-image">
+          <img *ngIf="activateHome" src="assets/images/home.svg" alt="home" class="normal">
+          <img *ngIf="!activateHome" src="assets/images/home-gray.svg" alt="home" class="disable">
+        </span>
+        <span class="icon-text">Home</span>
+      </a>
+    </li>
+    <li [class.disable]="!activateSignature" (click)="navigateToSignatureScreen()">
+      <a title="Signature" class="icon-wrapper">
+        <span class="icon-image">
+          <img *ngIf="activateSignature" src="assets/images/signature.svg" alt="Signature" class="normal">
+          <img *ngIf="!activateSignature" src="assets/images/signature-gray.svg" alt="Signature" class="disable">
+        </span>
+        <span class="icon-text">Signature</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/orders-list" title="Orders" class="icon-wrapper">
+        <span class="icon-image">
+          <img *ngIf="activateOrders" src="assets/images/order-summary.svg" alt="orders" class="normal">
+          <img *ngIf="!activateOrders" src="assets/images/order-summary-gray.svg" alt="orders" class="disable">
+        </span>
+        <span class="icon-text">Orders</span>
+      </a>
+    </li>
+  </ul>
+</div>

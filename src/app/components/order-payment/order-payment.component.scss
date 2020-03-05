@@ -1,0 +1,221 @@
+.payment-modal .custom-radio {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: auto;
+}
+
+.payment-modal .modal-dialog .modal-header {
+  justify-content: flex-start;
+}
+
+.payment-modal ul li {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+.payment-modal ul li.active {
+  border: 1px solid #c22812;
+}
+
+.payment-modal ul li:last-child {
+  margin-bottom: 0;
+}
+
+.payment-modal .card-block {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-right: 30px;
+}
+
+.payment-modal .card-block .card-image {
+  position: absolute;
+  width: 35px;
+  left: 0;
+  top: -2px;
+  right: auto;
+  text-align: center;
+
+  img {
+    vertical-align: middle;
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+    border: 0;
+  }
+}
+
+.payment-modal img {
+  height: 48px;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+.w-75 { width: 50px; }
+
+.payment-modal .card-block p {
+  padding-left: 45px;
+  line-height: 1.8;
+}
+
+.payment-modal .modal-footer {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.payment-modal .total-payment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.payment-modal .total-payment-inner p {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  color: #000;
+}
+
+.payment-modal .total-payment-inner .btn {
+  min-width: 134px;
+  font-size: 14px;
+  height: 40px;
+  text-transform: none;
+}
+
+.payment-modal .modal-footer {
+  border-top: 0;
+}
+
+.payment-inner {
+  padding: 0 15px;
+}
+
+.payment-inner .product-listing {
+  margin: 0;
+}
+
+.payment-status-block {
+  padding: 24px 0;
+  border-top: 1px solid #838383;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-status-block p {
+  font-size: 14px;
+  color: #000;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+
+.payment-modal ul li.active .custom-radio input + label:before {
+  background-color: #c22812;
+  box-shadow: inset 0 0 0 4px #fff;
+  border: 1px solid #c22812;
+}
+
+.payment-modal ul li .custom-radio input + label:before {
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid #838383;
+}
+
+.payement-page .product-listing .two-column .left-col,
+.payment-page .product-listing .two-column .right-col {
+  max-width: unset;
+  flex: unset;
+}
+
+.payment-page .product-listing .two-column {
+  justify-content: space-between;
+}
+
+.payment-page .product-listing .two-column.right-min-col .order-info {
+  min-width: 113px;
+}
+
+/* custom pod modal*/
+
+.custom-pod-modal .modal-dialog .modal-body span {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.custom-pod-modal .modal-dialog .modal-body p {
+  text-align: center;
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.custom-pod-modal .modal-dialog .modal-body p .order-num {
+  color: #c22812;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+// Confirm order
+
+.btn{
+  color: white;
+}
+
+.confirm-order .bottom-fixed-button {
+  left: 0;
+}
+.confirm-order .bottom-fixed-button .red-btn {
+  color: white;
+  font-size: 14px;
+  text-transform: capitalize;
+  height: 41px;
+}
+.confirm-order .bottom-fixed-button .red-btn em {
+  color: white;
+  width: 14px;
+  margin-right: 6px;
+}
+.button-listing {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.button-listing li {
+  max-width: calc(50% - 8px);
+  flex: 0 0 calc(50% - 8px);
+  margin-top: 17px;
+}
+.button-listing li .btn {
+  font-size: 14px;
+  text-transform: capitalize;
+  height: 41px;
+}
+.button-listing li .btn em {
+  margin-right: 6px;
+}
+.button-listing li .upload-control input,
+.button-listing li .camera-control input {
+  display: none;
+}
+
+@media (max-width: 374px) {
+  .button-listing li .btn {
+    font-size: 13px;
+    padding: 5px;
+  }
+  .button-listing li .btn em {
+    margin-right: 5px;
+  }
+}

@@ -1,0 +1,492 @@
+zxing-scanner {
+  width: 400px !important;
+  height: 400px !important;
+}
+
+.inner-page {
+  padding: 0 15px;
+}
+.product-listing .inner-listing .order-listing-inner.item-dec .order-info {
+  padding-left: 0;
+}
+.product-listing .inner-listing .order-listing-inner.item-dec .order-info span {
+  color: #959595;
+}
+.product-listing .inner-listing .order-listing-inner .order-info span.red-text {
+  color: #c22812;
+}
+
+// .validate-item-page .header {
+//   padding-bottom: 0;
+// }
+
+.validate-item-page .search-wrapper .form-group .search-input {
+  padding-right: 50px;
+}
+
+.barcode-input {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 28px;
+  height: 26px;
+  z-index: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.item-info .img-wrapper {
+  border-radius: 5px;
+  overflow: hidden;
+}
+.item-info .img-wrapper img {
+  width: 100%;
+  height: auto;
+}
+.item-info {
+  display: flex;
+  margin: 0 -5px;
+  flex-wrap: wrap;
+}
+.item-info .left-col {
+  max-width: 200px;
+  flex: 0 0 200px;
+  padding: 0 5px;
+}
+.item-info .right-col {
+  max-width: calc(100% - 200px);
+  flex: 0 0 calc(100% - 200px);
+  padding: 0 5px;
+}
+.item-info p {
+  padding-left: 0;
+}
+.item-info .item-dec h2 {
+  color: #000000;
+  margin: 0;
+  padding-bottom: 5px;
+}
+.item-info .item-dec h2 span {
+  color: #959595;
+}
+.item-info .qty-info p {
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+.product-listing .inner-listing .order-listing-inner.item-dec .qty-info {
+  margin: 0;
+}
+.product-listing .inner-listing .order-listing-inner.item-dec .qty-info span {
+  color: #959595;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+}
+.item-info .item-dec .prize-info {
+  font-size: 17px;
+  color: #c22812;
+  font-weight: 700;
+  font-family: "Roboto", sans-serif;
+  display: inline-block;
+}
+.item-info .item-dec .two-column {
+  justify-content: space-between;
+  padding-bottom: 3px;
+}
+.item-info.confirm-order .badge-wrapper .info-badge.confirm {
+  display: block;
+}
+.item-info.confirm-order .badge-wrapper .info-badge.pending {
+  display: block;
+}
+.item-info.confirm-order .btn-wrapper .btn.done-btn {
+  pointer-events: none;
+  background-color: #838383;
+}
+
+/*image scanner*/
+
+#image-scanner {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.scanner-open#image-scanner {
+  z-index: 9999;
+}
+
+#image-scanner video {
+  min-height: 100%;
+  min-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#image-scanner canvas {
+  opacity: 0;
+  visibility: visible;
+}
+
+/*counter css*/
+
+.input-number-decrement {
+  color: #838383;
+  padding: 3px 8px;
+  border: 1px solid #838383;
+  border-radius: 2px;
+  background-color: #fff;
+}
+
+.input-number-increment {
+  color: #fff !important;
+  padding: 3px 8px;
+  border: 1px solid #c22812;
+  border-radius: 2px;
+  background-color: #c22812;
+}
+
+.input-number {
+  width: 60px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin: 0 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+.cancel-recheck-detail .right-col.cancel-wrapper {
+  text-align: right;
+}
+.cancel-recheck-detail .cancel-wrapper .cancel-wrapper-inner a {
+  padding: 4px 6px;
+  border-radius: 2px;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  background-color: #c22812;
+  color: #fff;
+  border-radius: 2px;
+}
+
+.recheck-cancel-modal .modal-inner p {
+  text-align: center;
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+  padding: 0;
+  margin-bottom: 2px;
+}
+.recheck-cancel-modal .modal-inner .btn-wrapper .btn {
+  text-transform: uppercase;
+  height: 49px;
+  font-size: 20px;
+}
+.recheck-cancel-modal .modal-dialog {
+  max-width: 344px;
+  margin: 0 auto;
+}
+.cancel-recheck-detail .product-listing {
+  margin: 0;
+}
+.barcode-error-modal {
+  text-align: center;
+}
+.barcode-error-modal h4 {
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  margin: 5px 0;
+}
+.barcode-error-modal p {
+  max-width: 90%;
+  margin: 0 auto 10px;
+}
+.barcode-error-modal .btn {
+  height: 32px;
+  display: inline-flex;
+  width: 125px;
+  font-size: 17px;
+}
+
+.barcode-scanner-modal .modal-content {
+  background: transparent;
+}
+
+/* barcode scanner modal */
+.barcode-scanner-modal .modal-dialog .modal-body p {
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 30px;
+  letter-spacing: -0.3px;
+}
+.barcode-scanner-modal .modal-dialog .modal-body .barcode-div {
+  height: 125px;
+  margin-bottom: 35px;
+  text-align: center;
+}
+.barcode-scanner-modal .modal-dialog .modal-body .barcode-div img {
+  height: 100%;
+}
+.barcode-scanner-modal .modal-dialog .modal-body .bottom-close-link {
+  text-align: center;
+}
+@media (max-width: 574px) {
+  .item-info .left-col {
+    max-width: 85px;
+    flex: 0 0 85px;
+  }
+  .item-info .right-col {
+    max-width: calc(100% - 85px);
+    flex: 0 0 calc(100% - 85px);
+  }
+}
+@media (max-width: 350px) {
+  .product-listing .inner-listing .order-listing-inner.item-dec .qty-info {
+    margin: 0 0 5px;
+  }
+  .product-listing .inner-listing .order-listing-inner.item-dec .badge-wrapper {
+    margin: 0 0 5px;
+  }
+  .item-info .item-dec .two-column {
+    display: block;
+  }
+  .item-info.confirm-order .badge-wrapper .info-badge.confirm,
+  .item-info .badge-wrapper .info-badge.pending {
+    left: 0;
+    right: auto;
+  }
+}
+
+/*List of order page general css*/
+.orderlist-page header {
+  padding-bottom: 0;
+}
+.orderlist-page-inner {
+  padding: 0 15px;
+}
+
+.orderlist-page-inner .inner-listing {
+  padding: 13px 15px;
+}
+
+.orderlist-page-inner .navigate-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 15px;
+  padding-left: 15px;
+  height: calc(100% - 65%);
+}
+.orderlist-page .product-listing .two-column {
+  justify-content: space-between;
+}
+.orderlist-page .product-listing .two-column .left-col,
+.orderlist-page .product-listing .two-column .right-col {
+  max-width: unset;
+  flex: unset;
+}
+.orderlist-page .product-listing .two-column .right-col .order-info {
+  min-width: 118px;
+}
+.orderlist-page .delivered-badge {
+  margin-bottom: 5px;
+}
+
+/*Cancel order popup css*/
+.cancel-order-modal .modal-inner p,
+.reattempt-order-modal .modal-inner p {
+  text-align: center;
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+  padding: 0 40px;
+  margin-bottom: 2px;
+}
+.cancel-order-modal .modal-inner .btn-wrapper .btn,
+.reattempt-order-modal .modal-inner .btn-wrapper .btn {
+  text-transform: uppercase;
+  height: 49px;
+  font-size: 20px;
+}
+.cancel-order-modal .modal-dialog,
+.reattempt-order-modal .modal-dialog {
+  max-width: 344px;
+  margin: 0 auto;
+}
+
+/*reattempt-list of order css*/
+.product-listing .inner-listing .status-info {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3px;
+}
+.product-listing .inner-listing .status-info span {
+  font-family: "Roboto", sans-serif;
+  color: #838383;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: -0.81px;
+  padding-right: 8px;
+}
+.product-listing .inner-listing .status-info .radio-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.product-listing .inner-listing .status-info .radio-wrapper .custom-radio:not(:last-child) {
+  margin-right: 10px;
+}
+.product-listing .inner-listing .status-info .radio-wrapper .custom-radio input + label:before {
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+.product-listing .inner-listing .status-info .radio-wrapper .custom-radio input:checked + label:before {
+  box-shadow: inset 0 0 0 1.6px #fff;
+}
+.product-listing .inner-listing .status-info .radio-wrapper .custom-radio label {
+  font-size: 14px;
+  line-height: 18px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.81px;
+  color: #000000;
+  padding-left: 17px;
+  position: relative;
+  cursor: pointer;
+}
+/* fixed button css */
+.orderlist-page .bottom-fixed-button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  left: 0;
+  right: 0;
+  padding: 15px;
+}
+.orderlist-page .bottom-fixed-button .btn {
+  max-width: calc(50% - 8px);
+  flex: 0 0 calc(50% - 8px);
+}
+
+/* cancel order list page css */
+.cancel-list .product-listing .two-column .right-col,
+.validate-item-page .product-listing .two-column .right-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.cancel-list .product-listing .two-column .right-col .cancel-link,
+.validate-item-page .product-listing .two-column .right-col .cancel-link {
+  background-color: #c22812;
+  padding: 2px 5px;
+  margin: 0 0 5px 8px;
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+.cancel-list .delivered-badge,
+.validate-item-page .delivered-badge {
+  margin-bottom: 5px;
+}
+.cancel-list .product-listing .two-column .left-col,
+.validate-item-page .product-listing .two-column .right-col,
+.validate-item-page .product-listing .two-column .left-col,
+.cancel-list .product-listing .two-column .right-col {
+  max-width: unset;
+  flex: unset;
+}
+.cancel-list .product-listing .two-column,
+.validate-item-page .product-listing .two-column {
+  justify-content: space-between;
+}
+/* order reason modal */
+.order-reason.cancel-order-modal .modal-inner .btn-wrapper .btn,
+.reattempt-order-modal .modal-inner .btn-wrapper .btn {
+  font-size: 18px;
+  height: 40px;
+  line-height: 22px;
+  text-transform: none;
+}
+
+/*Order history page css*/
+.order-history-tab {
+  background-color: #c22812;
+}
+.order-history-tab ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.order-history-tab ul li {
+  max-width: 50%;
+  flex: 0 0 50%;
+  border-bottom: 2px solid transparent;
+}
+.order-history-tab ul li.active {
+  border-color: #ffffff;
+}
+.order-history-tab ul li.active a {
+  font-weight: 400;
+}
+.order-history-tab ul li a {
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  display: inline-block;
+}
+.orderhistory-page .wrapper {
+  padding-top: 0;
+}
+.orderhistory-page .delivered-badge {
+  min-width: 84px;
+}
+.pNotFound{
+  border: 2px solid #c22812;
+    text-align: center;
+    color: #c22812;
+}
+
+@media (max-width: 374px) {
+  .cancel-order-modal .modal-dialog {
+    max-width: 91%;
+  }
+
+  .product-listing .inner-listing .status-info span {
+    padding-right: 5px;
+    font-size: 13px;
+  }
+  .product-listing .inner-listing .status-info .radio-wrapper .custom-radio:not(:last-child) {
+    margin-right: 9px;
+  }
+  .product-listing .inner-listing .status-info .radio-wrapper .custom-radio label {
+    font-size: 13px;
+    padding-left: 15px;
+  }
+  .cancel-order-modal .modal-inner p,
+  .reattempt-order-modal .modal-inner p {
+    padding: 0;
+  }
+}

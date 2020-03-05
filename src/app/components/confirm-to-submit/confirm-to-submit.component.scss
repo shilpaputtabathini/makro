@@ -1,0 +1,109 @@
+.confirm-submit-inner {
+  padding: 0 15px;
+}
+
+.confirm-submit {
+  overflow: hidden;
+}
+
+.confirm-submit-inner .product-listing {
+  margin: 0 0 15px;
+}
+
+.confirm-submit .bottom-fixed-button {
+  padding: 15px;
+}
+
+.product-listing .order-detail.align-top {
+  align-items: flex-start;
+}
+
+.product-listing .order-detail.align-top p {
+  margin-bottom: 0;
+}
+
+.product-listing .order-detail .return-total {
+  margin-bottom: 5px;
+}
+
+.product-listing .order-detail .return-total span {
+  color: #959595;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  position: relative;
+}
+
+.product-listing .order-detail .return-total span:first-child {
+  padding-right: 5px;
+  margin-right: 5px;
+}
+
+.product-listing .order-detail .return-total span:first-child:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 1px;
+  bottom: 2px;
+  width: 1px;
+  background-color: #959595;
+}
+
+.product-listing .order-detail .return-total span em {
+  font-weight: 400;
+  color: #000000;
+  margin-left: 5px;
+}
+
+.product-listing .inner-listing.total-listing .inner-item-listing {
+  max-height: 190px;
+  overflow-y: auto;
+}
+
+.product-listing .inner-listing.total-listing .inner-total-listing {
+  padding-bottom: 5px;
+  margin-bottom: 7px;
+  position: relative;
+}
+
+.product-listing .inner-listing.total-listing .inner-total-listing::after {
+  position: absolute;
+  content: "";
+  bottom: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  left: 0;
+  right: 0;
+}
+
+.confirm-to-submit-page .product-listing .two-column.right-min-col .order-info {
+  min-width: 113px;
+}
+
+/* product listing two col */
+
+.confirm-to-submit-page .product-listing .two-column .left-col {
+  max-width: unset;
+  flex: unset;
+}
+
+.confirm-to-submit-page .product-listing .two-column {
+  justify-content: space-between;
+}
+
+.confirm-to-submit-page .product-listing .two-column .right-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.confirm-to-submit-page .delivered-badge {
+  margin-bottom: 5px;
+}
+
+.product-listing ul li .order-detail.single-detail {
+  margin-bottom: 3px;
+}
+
+.product-listing ul li:last-child .order-detail.single-detail {
+  margin: 0;
+}

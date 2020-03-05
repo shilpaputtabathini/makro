@@ -1,0 +1,152 @@
+<div class="site-wrapper signature-page">
+  <header class="header" #headerRef>
+    <div class="header-inner">
+      <a [routerLink]="['/dashboard']" title="dashboard">
+        <h1>
+          <em>
+            <img src="assets/images/back-arrow.svg" alt="Back arrow">
+          </em>Draw Your Signature
+        </h1>
+      </a>
+      <app-logout></app-logout>
+    </div>
+  </header>
+  <main class="wrapper signature-wrapper" #wrapperRef>
+    <div class="signature-inner padding-bottom">
+      <div class="product-listing">
+        <div class="inner-listing">
+          <ul class="order-listing-inner">
+            <li class="two-column">
+              <div class="left-col">
+                <div class="order-info">
+                  <a href="#">
+                    <em>
+                      <img src="assets/images/order.svg" alt="order">
+                    </em>
+                    <span class="red-text">{{orderDetails?.order_number}}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="right-col">
+                <span class="delivered-badge">
+                  <em><img src="assets/images/deliver-img.svg" alt="deliver-img"></em>
+                  {{orderDetails?.status}}
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="order-info">
+                <em>
+                  <img src="assets/images/location.svg" alt="location">
+                </em>
+                <span class="strong">
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_1">
+                    {{orderDetails?.shipment_address.address_line_1}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_2">
+                    {{orderDetails?.shipment_address.address_line_2}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_3">
+                    {{orderDetails?.shipment_address.address_line_3}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_4">
+                    {{orderDetails?.shipment_address.address_line_4}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_5">
+                    {{orderDetails?.shipment_address.address_line_5}}
+                  </ng-container>
+                  <ng-container *ngIf="orderDetails?.shipment_address.address_line_6">
+                    {{orderDetails?.shipment_address.address_line_6}}
+                  </ng-container>
+                </span>
+              </div>
+            </li>
+            <li class="two-column">
+              <div class="left-col">
+                <div class="bold order-info">
+                  <em>
+                    <img src="assets/images/user.svg" alt="user">
+                  </em>
+                  <span class="red-text">{{orderDetails?.shipment_address.first_name}}
+                    {{orderDetails?.shipment_address.last_name}}</span>
+                </div>
+              </div>
+              <div class="right-col" *ngIf="paymentStatus && paymentStatus === 'paid'">
+                <div class="order-info">
+                  <em>
+                    <img class="collect-icon" src="assets/images/collect-icon.svg" alt="collect-icon">
+                  </em>
+                  <div [ngClass]="paymentStatus === 'paid' ? 'badge-wrapper': 'red-text'">
+                    <span id="payment-status">{{paymentStatus && paymentStatus === 'paid' ? 'Paid' : 'To be collected'}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="right-col" *ngIf="paymentStatus && paymentStatus !== 'paid'">
+                <div class="order-info">
+                  <em>
+                    <img src="assets/images/collect-icon.svg" alt="collect-icon">
+                  </em>
+                  <span class="red-text">To be Collected</span>
+                </div>
+              </div>
+            </li>
+            <li class="mb-1" *ngIf="paymentStatus && paymentStatus !== 'paid'">
+              <div class="order-detail single-detail">
+                <p>Amount to be collected:</p>
+                <span class="price">${{orderDetails?.total_price}}</span>
+              </div>
+            </li>
+            <li class="mb-1" *ngIf="paymentStatus && paymentStatus === 'paid'">
+              <div class="order-detail single-detail">
+                <p>Amount collected:</p>
+                <span class="price">${{orderDetails?.total_price}}</span>
+              </div>
+            </li>
+            <li>
+              <div class="order-detail single-detail">
+                <p>Recheck Status:</p>
+                <div class="badge-wrapper">
+                  <span class="info-badge" [class.red-badge]="isReturnOrder"
+                    [class.green-badge]="!isReturnOrder">{{isReturnOrder ? 'Return' : 'No Return'}}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="signature-canvas">
+          <!-- <canvas id="signature" #signatureCanvasRef></canvas>
+          <div class="clear-canvas">
+            <a (click)="clearSignature()" id="clear-signature" class="red-text underlined-text">Clear Signature</a>
+          </div> -->
+          <ng-signature-pad format="blob" [emitOnDragEnd]="true" (done)="saveSignature($event)"
+            (cleared)="clearSignature()" [showDoneButton]="false" [showClearButton]="true"
+            clearButtonText="Clear Signature">
+          </ng-signature-pad>
+        </div>
+        <form class="submit-form  makro-form">
+          <div class="form-group">
+            <input type="text" placeholder="Receiver Name" name="name" class="form-control" autocomplete="off"
+              [(ngModel)]="receiverName">
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="Select Date" name="dp" ngbDatepicker
+                #orderDateRef="ngbDatepicker" (click)="orderDateRef.open()"
+                (dateSelect)="onDateSelect($event, orderDateRef)" [(ngModel)]="orderReceivedDate">
+              <em class="calendar-icon" (click)="orderDateRef.toggle()">
+                <img src="assets/images/calendar-signature.svg" alt="Calendar">
+              </em>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="custom-fixed-bottom" #navigationBarContainerRef>
+        <div class="bottom-fixed-button">
+          <a (click)="onSignatureSave()" title="CONFIRM" class="btn red-btn">Save</a>
+        </div>
+        <app-navigation-bar></app-navigation-bar>
+      </div>
+    </div>
+  </main>
+</div>
